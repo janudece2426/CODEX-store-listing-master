@@ -161,8 +161,9 @@ export default function App() {
             <button
               type="button"
               onClick={goHome}
-              className="w-fit text-left text-2xl font-bold tracking-normal text-slate-950 transition hover:text-[#9a762b] sm:text-3xl"
+              className="w-fit cursor-pointer text-left text-2xl font-bold tracking-normal text-slate-950 transition hover:text-[#9a762b] sm:text-3xl"
               title="홈으로 돌아가기"
+              aria-label="홈으로 돌아가기"
             >
               상가 매물관리 마스터
             </button>
