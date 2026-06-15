@@ -57,6 +57,7 @@ export function downloadPrintExcel(listings) {
       { wch: 8 },
       { wch: 8 },
       { wch: 12 },
+      { wch: 14 },
       { wch: 10 },
       { wch: 24 },
     ]);
@@ -74,6 +75,8 @@ export function downloadPrintExcel(listings) {
       { wch: 14 },
       { wch: 8 },
       { wch: 8 },
+      { wch: 10 },
+      { wch: 14 },
       { wch: 10 },
       { wch: 28 },
     ]);
@@ -103,6 +106,7 @@ function toRentPrintRow(listing) {
     평수: listing.area ? `${listing.area}평` : '',
     층수: listing.floor || '',
     공용관리비: formatMoney(listing.maintenanceFee),
+    연락처: listing.contact || '',
     담당자: listing.manager || '',
     메모: [listing.memo, listing.specialNote].filter(Boolean).join(' / '),
   };
@@ -119,6 +123,8 @@ function toSalePrintRow(listing) {
     평수: listing.area ? `${listing.area}평` : '',
     층수: listing.floor || '',
     수익률: listing.yieldRate ? `${listing.yieldRate}%` : '',
+    연락처: listing.contact || '',
+    담당자: listing.manager || '',
     임차조건: listing.tenantConditions || '',
   };
 }
