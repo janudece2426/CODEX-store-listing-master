@@ -6,7 +6,7 @@ import ListingDetail from './components/ListingDetail';
 import ListingFormModal from './components/ListingFormModal';
 import SearchAndActions from './components/SearchAndActions';
 import Sidebar from './components/Sidebar';
-import { downloadListingsExcel } from './utils/exportExcel';
+import { downloadListingsExcel, downloadPrintExcel } from './utils/exportExcel';
 import { exportBackup, loadListings, readBackupFile, saveListings } from './utils/storage';
 
 const defaultFilters = {
@@ -177,6 +177,7 @@ export default function App() {
               onSearchChange={setSearch}
               onCreate={openCreateForm}
               onExcel={() => downloadListingsExcel(filteredListings)}
+              onPrintExcel={() => downloadPrintExcel(filteredListings)}
               onBackup={() => exportBackup(listings)}
               onRestoreClick={() => restoreInputRef.current?.click()}
             />

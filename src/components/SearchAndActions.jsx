@@ -1,4 +1,4 @@
-import { Download, FileDown, FileUp, Plus, Search } from 'lucide-react';
+import { Download, FileDown, FileSpreadsheet, FileUp, Plus, Search } from 'lucide-react';
 import ActionButton from './ActionButton';
 
 export default function SearchAndActions({
@@ -6,6 +6,7 @@ export default function SearchAndActions({
   onSearchChange,
   onCreate,
   onExcel,
+  onPrintExcel,
   onBackup,
   onRestoreClick,
 }) {
@@ -26,6 +27,9 @@ export default function SearchAndActions({
         </ActionButton>
         <ActionButton icon={Download} onClick={onExcel}>
           엑셀 다운로드
+        </ActionButton>
+        <ActionButton icon={FileSpreadsheet} onClick={onPrintExcel}>
+          인쇄용 엑셀
         </ActionButton>
         <ActionButton icon={FileDown} onClick={onBackup}>
           백업
