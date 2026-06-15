@@ -155,18 +155,18 @@ export default function App() {
       <Sidebar totalCount={listings.length} onHome={goHome} />
 
       <main className="lg:pl-72">
-        <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6 lg:px-8">
-          <header className="mb-6 flex flex-col gap-2">
-            <p className="text-sm font-semibold text-[#a67d2b]">Listing Dashboard</p>
+        <div className="mx-auto max-w-7xl px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
+          <header className="mb-4 flex flex-col gap-1 sm:mb-6 sm:gap-2">
+            <p className="text-xs font-semibold text-[#a67d2b] sm:text-sm">Listing Dashboard</p>
             <button
               type="button"
               onClick={goHome}
-              className="w-fit text-left text-3xl font-bold tracking-normal text-slate-950 transition hover:text-[#9a762b]"
+              className="w-fit text-left text-2xl font-bold tracking-normal text-slate-950 transition hover:text-[#9a762b] sm:text-3xl"
               title="홈으로 돌아가기"
             >
               상가 매물관리 마스터
             </button>
-            <p className="text-sm text-slate-500">
+            <p className="hidden text-sm text-slate-500 sm:block">
               등록, 검색, 필터, 엑셀 다운로드, 백업과 복원을 한 화면에서 관리합니다.
             </p>
           </header>

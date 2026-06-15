@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { RotateCcw } from 'lucide-react';
 import { districtsByProvince, floors as defaultFloors } from '../constants/options';
 import ActionButton from './ActionButton';
@@ -10,9 +11,12 @@ const filterFields = [
 ];
 
 export default function Filters({ activeTab, filters, managers, floors, onTabChange, onFilterChange, onReset }) {
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const activeFilterCount = Object.values(filters).filter(Boolean).length;
+
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
-      <div className="flex flex-col gap-4">
+    <section className="rounded-2xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
+      <div className="flex flex-col gap-3 sm:gap-4">
         <div className="flex flex-wrap gap-2">
           {['전체', '임대', '매매'].map((tab) => (
             <button
@@ -29,7 +33,27 @@ export default function Filters({ activeTab, filters, managers, floors, onTabCha
           ))}
         </div>
 
-        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-6">
+        <div className="flex items-center gap-2 lg:hidden">
+          <button
+            type="button"
+            onClick={() => setIsMobileOpen((prev) => !prev)}
+            className="flex h-11 flex-1 items-center justify-center rounded-xl border border-slate-200 bg-slate-50 text-sm font-bold text-slate-700"
+          >
+            {isMobileOpen ? '필터 접기' : activeFilterCount ? `필터 열기 (${activeFilterCount})` : '필터 열기'}
+          </button>
+          <button
+            type="button"
+            onClick={() => {
+              onReset();
+              setIsMobileOpen(false);
+            }}
+            className="h-11 rounded-xl border border-slate-200 bg-white px-4 text-sm font-bold text-slate-600"
+          >
+            초기화
+          </button>
+        </div>
+
+        <div className={`${isMobileOpen ? 'grid' : 'hidden'} gap-3 md:grid-cols-2 lg:grid xl:grid-cols-6`}>
           <label className="text-xs font-semibold text-slate-500">
             광역지역
             <select
@@ -89,7 +113,7 @@ export default function Filters({ activeTab, filters, managers, floors, onTabCha
           })}
         </div>
 
-        <div className="flex justify-end">
+        <div className="hidden justify-end lg:flex">
           <ActionButton icon={RotateCcw} onClick={onReset} className="w-full sm:w-auto">
             필터 초기화
           </ActionButton>

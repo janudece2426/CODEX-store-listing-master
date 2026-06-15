@@ -83,7 +83,7 @@ export function MobileListingCard({ listing, onView, onEdit, onDelete, onCopy })
             <Badge value={listing.type} kind="type" />
             <Badge value={listing.status} />
           </div>
-          <button onClick={() => onView(listing)} className="truncate text-left text-base font-bold text-slate-950">
+          <button onClick={() => onView(listing)} className="truncate text-left text-lg font-extrabold text-slate-950">
             {listing.businessName || '상호 미입력'}
           </button>
           <p className="mt-1 text-sm text-slate-500">{formatRegion(listing)}</p>
