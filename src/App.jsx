@@ -151,23 +151,23 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f6f7f9]">
+    <div className="min-h-screen bg-[#fff8f4]">
       <Sidebar totalCount={listings.length} onHome={goHome} />
 
       <main className="lg:pl-72">
         <div className="mx-auto max-w-7xl px-3 py-4 sm:px-6 sm:py-5 lg:px-8">
           <header className="mb-4 flex flex-col gap-1 sm:mb-6 sm:gap-2">
-            <p className="text-xs font-semibold text-[#a67d2b] sm:text-sm">Listing Dashboard</p>
+            <p className="text-xs font-bold text-[#b86562] sm:text-sm">Listing Dashboard</p>
             <button
               type="button"
               onClick={goHome}
-              className="w-fit cursor-pointer text-left text-2xl font-bold tracking-normal text-slate-950 transition hover:text-[#9a762b] sm:text-3xl"
+              className="w-fit cursor-pointer text-left text-2xl font-bold tracking-normal text-[#2d2530] transition hover:text-[#b86562] sm:text-3xl"
               title="홈으로 돌아가기"
               aria-label="홈으로 돌아가기"
             >
               상가 매물관리 마스터
             </button>
-            <p className="hidden text-sm text-slate-500 sm:block">
+            <p className="hidden text-sm font-medium text-[#6a5960] sm:block">
               등록, 검색, 필터, 엑셀 다운로드, 백업과 복원을 한 화면에서 관리합니다.
             </p>
           </header>
@@ -204,7 +204,7 @@ export default function App() {
             <section>
               <div className="mb-3 flex items-center justify-between">
                 <p className="text-sm font-semibold text-slate-600">
-                  총 <span className="text-[#9a762b]">{filteredListings.length}</span>개 매물
+                  총 <span className="text-[#b86562]">{filteredListings.length}</span>개 매물
                 </p>
               </div>
 
@@ -291,7 +291,7 @@ function ListingTable({ title, mode, listings, onView, onEdit, onDelete, onCopy 
 
   return (
     <div>
-      {title ? <h3 className="mb-2 text-sm font-bold text-slate-700">{title}</h3> : null}
+      {title ? <h3 className="mb-2 text-sm font-bold text-[#4a3a3f]">{title}</h3> : null}
       <div className="space-y-2">
         <ListingHeader mode={mode} />
         {listings.map((listing) => (

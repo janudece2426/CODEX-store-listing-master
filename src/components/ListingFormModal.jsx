@@ -59,17 +59,17 @@ export default function ListingFormModal({ listing, onClose, onSubmit }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/35 p-3 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2d2530]/38 p-3 backdrop-blur-sm">
       <form
         onSubmit={handleSubmit}
-        className="max-h-[94vh] w-full max-w-4xl overflow-y-auto rounded-2xl bg-white p-5 shadow-2xl"
+        className="max-h-[94vh] w-full max-w-4xl overflow-y-auto rounded-2xl bg-[#fffaf7] p-5 shadow-2xl"
       >
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-sm font-semibold text-[#a67d2b]">{isEdit ? 'Edit Listing' : 'New Listing'}</p>
-            <h2 className="mt-1 text-2xl font-bold text-slate-950">{isEdit ? '매물 수정' : '매물 등록'}</h2>
+            <p className="text-sm font-bold text-[#b86562]">{isEdit ? 'Edit Listing' : 'New Listing'}</p>
+            <h2 className="mt-1 text-2xl font-bold text-[#2d2530]">{isEdit ? '매물 수정' : '매물 등록'}</h2>
           </div>
-          <button type="button" onClick={onClose} className="rounded-xl border border-slate-200 p-2 text-slate-500">
+          <button type="button" onClick={onClose} className="rounded-xl border border-[#ead8d1] bg-white p-2 text-[#6a5960] hover:bg-[#fff4ef]">
             <X size={20} />
           </button>
         </div>
@@ -120,13 +120,13 @@ export default function ListingFormModal({ listing, onClose, onSubmit }) {
           <Input label="연락처" value={form.contact} onChange={(value) => updateField('contact', value)} />
         </div>
 
-        <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50/70 p-4">
+        <div className="mt-6 rounded-2xl border border-[#ead8d1] bg-white p-4">
           <div className="mb-4 flex items-center justify-between gap-3">
             <div>
-              <p className="text-sm font-bold text-slate-900">
+              <p className="text-sm font-bold text-[#2d2530]">
                 {form.type === '매매' ? '매매 조건' : '임대 조건'}
               </p>
-              <p className="mt-1 text-xs text-slate-500">
+              <p className="mt-1 text-xs font-medium text-[#6a5960]">
                 {form.type === '매매'
                   ? '매매가와 수익률 중심으로 입력합니다.'
                   : '보증금, 월세, 권리금, 공용관리비 중심으로 입력합니다.'}
@@ -195,36 +195,36 @@ export default function ListingFormModal({ listing, onClose, onSubmit }) {
         </div>
 
         {form.type === '매매' ? (
-          <label className="mt-4 block text-sm font-semibold text-slate-600">
+          <label className="mt-4 block text-sm font-bold text-[#5f4b52]">
             현재 임차조건
             <textarea
               value={form.tenantConditions}
               onChange={(event) => updateField('tenantConditions', event.target.value)}
               rows={4}
-              className="mt-2 w-full resize-none rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#c8a24d] focus:ring-4 focus:ring-[#c8a24d]/10"
+              className="mt-2 w-full resize-none rounded-2xl border border-[#ead8d1] bg-white px-4 py-3 text-sm font-medium text-[#2d2530] outline-none placeholder:text-[#9a8b91] focus:border-[#b86562] focus:ring-4 focus:ring-[#b86562]/15"
               placeholder="예: 1층 카페 보증금 5,000 / 월세 450, 2층 사무실 보증금 2,000 / 월세 180 등 전체 임차인 조건"
             />
           </label>
         ) : null}
 
-        <label className="mt-4 block text-sm font-semibold text-slate-600">
+        <label className="mt-4 block text-sm font-bold text-[#5f4b52]">
           메모
           <textarea
             value={form.memo}
             onChange={(event) => updateField('memo', event.target.value)}
             rows={4}
-            className="mt-2 w-full resize-none rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#c8a24d] focus:ring-4 focus:ring-[#c8a24d]/10"
+            className="mt-2 w-full resize-none rounded-2xl border border-[#ead8d1] bg-white px-4 py-3 text-sm font-medium text-[#2d2530] outline-none placeholder:text-[#9a8b91] focus:border-[#b86562] focus:ring-4 focus:ring-[#b86562]/15"
             placeholder="특이사항, 고객 요청사항, 확인할 내용 등을 기록하세요."
           />
         </label>
 
-        <label className="mt-4 block text-sm font-semibold text-slate-600">
+        <label className="mt-4 block text-sm font-bold text-[#5f4b52]">
           특이사항
           <textarea
             value={form.specialNote}
             onChange={(event) => updateField('specialNote', event.target.value)}
             rows={3}
-            className="mt-2 w-full resize-none rounded-2xl border border-slate-200 px-4 py-3 text-sm outline-none focus:border-[#c8a24d] focus:ring-4 focus:ring-[#c8a24d]/10"
+            className="mt-2 w-full resize-none rounded-2xl border border-[#ead8d1] bg-white px-4 py-3 text-sm font-medium text-[#2d2530] outline-none placeholder:text-[#9a8b91] focus:border-[#b86562] focus:ring-4 focus:ring-[#b86562]/15"
             placeholder="가격 협의, 임차 조건, 현장 확인 포인트 등을 기록하세요."
           />
         </label>
@@ -244,7 +244,7 @@ export default function ListingFormModal({ listing, onClose, onSubmit }) {
 
 function Input({ label, value, onChange, type = 'text', placeholder, required }) {
   return (
-    <label className="text-sm font-semibold text-slate-600">
+    <label className="text-sm font-bold text-[#5f4b52]">
       {label}
       <input
         type={type}
@@ -252,7 +252,7 @@ function Input({ label, value, onChange, type = 'text', placeholder, required })
         onChange={(event) => onChange(event.target.value)}
         placeholder={placeholder}
         required={required}
-        className="mt-2 h-11 w-full rounded-xl border border-slate-200 px-3 text-sm outline-none focus:border-[#c8a24d] focus:ring-4 focus:ring-[#c8a24d]/10"
+        className="mt-2 h-11 w-full rounded-xl border border-[#ead8d1] bg-white px-3 text-sm font-medium text-[#2d2530] outline-none placeholder:text-[#9a8b91] focus:border-[#b86562] focus:ring-4 focus:ring-[#b86562]/15"
       />
     </label>
   );
@@ -260,12 +260,12 @@ function Input({ label, value, onChange, type = 'text', placeholder, required })
 
 function Select({ label, value, options, onChange }) {
   return (
-    <label className="text-sm font-semibold text-slate-600">
+    <label className="text-sm font-bold text-[#5f4b52]">
       {label}
       <select
         value={value ?? ''}
         onChange={(event) => onChange(event.target.value)}
-        className="mt-2 h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none focus:border-[#c8a24d] focus:ring-4 focus:ring-[#c8a24d]/10"
+        className="mt-2 h-11 w-full rounded-xl border border-[#ead8d1] bg-white px-3 text-sm font-medium text-[#2d2530] outline-none focus:border-[#b86562] focus:ring-4 focus:ring-[#b86562]/15"
       >
         <option value="">선택</option>
         {options.map((option) => (
@@ -280,9 +280,9 @@ function Select({ label, value, options, onChange }) {
 
 function ReadOnlyField({ label, value }) {
   return (
-    <div className="text-sm font-semibold text-slate-600">
+    <div className="text-sm font-bold text-[#5f4b52]">
       {label}
-      <div className="mt-2 flex h-11 items-center rounded-xl border border-slate-200 bg-white/70 px-3 text-sm font-bold text-slate-500">
+      <div className="mt-2 flex h-11 items-center rounded-xl border border-[#ead8d1] bg-[#fff4ef] px-3 text-sm font-bold text-[#6a5960]">
         {value}
       </div>
     </div>
