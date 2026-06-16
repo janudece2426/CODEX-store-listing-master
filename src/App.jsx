@@ -7,7 +7,7 @@ import ListingFormModal from './components/ListingFormModal';
 import SearchAndActions from './components/SearchAndActions';
 import Sidebar from './components/Sidebar';
 import { downloadListingsExcel, downloadPrintExcel } from './utils/exportExcel';
-import { exportBackup, loadListings, readBackupFile, saveListings } from './utils/storage';
+import { exportBackup, loadListings, normalizeListing, readBackupFile, saveListings } from './utils/storage';
 
 const defaultFilters = {
   status: '',
@@ -27,6 +27,7 @@ export default function App() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedListing, setSelectedListing] = useState(null);
   const restoreInputRef = useRef(null);
+  const importInputRef = useRef(null);
 
   useEffect(() => {
     saveListings(listings);
@@ -150,6 +151,27 @@ export default function App() {
     }
   }
 
+  async function handleImport(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const imported = await readBackupFile(file);
+      if (!confirm(`백업 파일의 ${imported.length}개 매물을 현재 목록에 가져와 합칠까요? 기존 매물은 삭제되지 않습니다.`)) return;
+
+      const result = mergeListings(listings, imported);
+      setListings(result.listings);
+      setSearch('');
+      setActiveTab('전체');
+      setFilters(defaultFilters);
+      alert(`가져오기 완료\n새로 추가: ${result.added}개\n최신 내용 반영: ${result.updated}개\n유지: ${result.kept}개`);
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      event.target.value = '';
+    }
+  }
+
   return (
     <div className="min-h-screen bg-[#fff8f4]">
       <Sidebar totalCount={listings.length} onHome={goHome} />
@@ -180,6 +202,7 @@ export default function App() {
               onExcel={() => downloadListingsExcel(filteredListings)}
               onPrintExcel={() => downloadPrintExcel(filteredListings)}
               onBackup={() => exportBackup(listings)}
+              onImportClick={() => importInputRef.current?.click()}
               onRestoreClick={() => restoreInputRef.current?.click()}
             />
 
@@ -188,6 +211,14 @@ export default function App() {
               type="file"
               accept="application/json"
               onChange={handleRestore}
+              className="hidden"
+            />
+
+            <input
+              ref={importInputRef}
+              type="file"
+              accept="application/json"
+              onChange={handleImport}
               className="hidden"
             />
 
@@ -284,6 +315,44 @@ function matchesArea(area, filter) {
   if (filter === '30-50평') return area > 30 && area <= 50;
   if (filter === '50평 이상') return area >= 50;
   return true;
+}
+
+function mergeListings(currentListings, importedListings) {
+  const currentById = new Map(currentListings.map((listing) => [listing.id, listing]));
+  const nextListings = [...currentListings];
+  let added = 0;
+  let updated = 0;
+  let kept = 0;
+
+  importedListings.map(normalizeListing).forEach((importedListing) => {
+    const listing = importedListing.id ? importedListing : { ...importedListing, id: crypto.randomUUID() };
+    const current = currentById.get(listing.id);
+
+    if (!current) {
+      nextListings.unshift(listing);
+      currentById.set(listing.id, listing);
+      added += 1;
+      return;
+    }
+
+    if (isNewerListing(listing, current)) {
+      const index = nextListings.findIndex((item) => item.id === listing.id);
+      nextListings[index] = { ...current, ...listing };
+      currentById.set(listing.id, nextListings[index]);
+      updated += 1;
+      return;
+    }
+
+    kept += 1;
+  });
+
+  return { listings: nextListings, added, updated, kept };
+}
+
+function isNewerListing(candidate, current) {
+  const candidateTime = new Date(candidate.updatedAt || candidate.createdAt || 0).getTime();
+  const currentTime = new Date(current.updatedAt || current.createdAt || 0).getTime();
+  return candidateTime > currentTime;
 }
 
 function ListingTable({ title, mode, listings, onView, onEdit, onDelete, onCopy }) {

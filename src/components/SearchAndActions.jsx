@@ -1,4 +1,4 @@
-import { Download, FileDown, FileSpreadsheet, FileUp, Plus, Search } from 'lucide-react';
+import { Download, FileDown, FileSpreadsheet, FileUp, Plus, Search, Upload } from 'lucide-react';
 import ActionButton from './ActionButton';
 
 export default function SearchAndActions({
@@ -8,6 +8,7 @@ export default function SearchAndActions({
   onExcel,
   onPrintExcel,
   onBackup,
+  onImportClick,
   onRestoreClick,
 }) {
   return (
@@ -33,6 +34,9 @@ export default function SearchAndActions({
         </ActionButton>
         <ActionButton icon={FileDown} onClick={onBackup}>
           백업
+        </ActionButton>
+        <ActionButton icon={Upload} onClick={onImportClick}>
+          가져오기
         </ActionButton>
         <ActionButton icon={FileUp} onClick={onRestoreClick}>
           복원
